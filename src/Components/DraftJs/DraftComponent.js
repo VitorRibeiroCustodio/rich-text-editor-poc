@@ -57,12 +57,9 @@ class DraftComponent extends Component {
             placeholder="Draf JS Editor..."
             editorState={editorState} 
             onChange={this.updateEditorState}
-            textDirection="RTL"
-            textAlignment="right"
             customStyleFn={customStyleFn}
             customStyleMap={customStyleMap}
             spellCheck={true}
-            textDirectionality='LTR'
           />
         </EditorContainer>
         <Button variant="contained" color="primary" onClick={this.exportData}>
