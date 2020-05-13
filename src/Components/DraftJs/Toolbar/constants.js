@@ -6,25 +6,6 @@ import {
   faItalic,
 } from "@fortawesome/free-solid-svg-icons";
 
-const blockTypes = [
-  {
-    label: "H1",
-    style: "header-one"
-  },
-  {
-    label: "H2",
-    style: "header-two"
-  },
-  {
-    label: "H3",
-    type: "header-three"
-  },
-  {
-    label: "H4",
-    type: "header-four"
-  }
-];
-
 const inlineStyles = [
   {
     label: "bold",
@@ -43,4 +24,4 @@ const inlineStyles = [
   }
 ];
 
-export { blockTypes, inlineStyles };
+export { inlineStyles };

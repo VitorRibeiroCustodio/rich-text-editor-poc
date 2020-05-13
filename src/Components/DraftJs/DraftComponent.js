@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Editor, EditorState } from 'draft-js';
+import { Editor, EditorState, convertToRaw } from 'draft-js';
 import styled from "styled-components";
 import Toolbar from "./Toolbar/index";
-import { customStyleFn } from "./Toolbar/customStyles";
+import { customStyleFn, customStyleMap } from "./Toolbar/customStyles";
 import { Button } from '@material-ui/core';
 
 const EditorWrapper = styled.div`
@@ -24,12 +24,12 @@ const EditorContainer = styled.div`
   box-shadow: 0px 0px 3px 1px rgba(15, 15, 15, 0.17);
 `;
 
-
 class DraftComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       editorState: EditorState.createEmpty(),
+      rawJson: null,
     }
   }
 
@@ -37,25 +37,35 @@ class DraftComponent extends Component {
     this.setState({editorState});
   }
   
+  exportData = () => {
+    const { editorState } = this.state;
+    this.setState({
+      rawJson: convertToRaw(editorState.getCurrentContent()),
+    });
+  }
 
   render() {
+    const { editorState } = this.state;
     return (
       <EditorWrapper>
         <Toolbar
-            editorState={this.state.editorState}
+            editorState={editorState}
             updateEditorState={this.updateEditorState}
           />
         <EditorContainer>
           <Editor
             placeholder="Draf JS Editor..."
-            editorState={this.state.editorState} 
+            editorState={editorState} 
             onChange={this.updateEditorState}
             textDirection="RTL"
             textAlignment="right"
             customStyleFn={customStyleFn}
+            customStyleMap={customStyleMap}
+            spellCheck={true}
+            textDirectionality='LTR'
           />
         </EditorContainer>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={this.exportData}>
           Export Data
         </Button>
       </EditorWrapper>

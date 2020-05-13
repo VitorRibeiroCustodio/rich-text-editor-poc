@@ -1,13 +1,21 @@
 import React from "react";
+import { RichUtils } from 'draft-js';
 import createStyles from "draft-js-custom-styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnchor } from "@fortawesome/free-solid-svg-icons";
+import { faAnchor, faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { Container, ToolbarItem } from "./common";
 
-//STYLES THAT WILL BE TOGGELED
+export const customStyleMap = {
+  pinAnnotation: {
+    backgroundColor: '#C1561A',
+    borderBottom: '2px solid #C1561A',
+  },
+ };
+
 const { styles, customStyleFn } = createStyles(
-  ["font-size", "color"],
-  "CUSTOM_"
+  ["font-size", "color", "background-color"],
+  "CUSTOM_",
+  customStyleMap,
 );
 
 const customStyles = [
@@ -16,6 +24,13 @@ const customStyles = [
     icon: <FontAwesomeIcon icon={faAnchor} />,
     styler: editorState => {
       return styles.color.toggle(editorState, "red");
+    }
+  },
+  {
+    label: "red-color",
+    icon: <FontAwesomeIcon icon={faMapPin} />,
+    styler: editorState => {
+      return RichUtils.toggleInlineStyle(editorState, 'pinAnnotation');
     }
   }
 ];
