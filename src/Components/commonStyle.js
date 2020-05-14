@@ -10,6 +10,9 @@ export const EditorWrapper = styled.div`
 
 export const HeaderContainer = styled.div`
 margin-bottom: 20px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
 `;
 
 export const EditorContainer = styled.div`

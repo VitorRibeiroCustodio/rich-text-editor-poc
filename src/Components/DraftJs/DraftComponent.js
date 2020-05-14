@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Editor, EditorState, convertToRaw } from 'draft-js';
 import Toolbar from "./Toolbar/index";
 import { customStyleFn, customStyleMap } from "./Toolbar/customStyles";
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, Select, MenuItem, FormControl } from '@material-ui/core';
 import { EditorWrapper, HeaderContainer, EditorContainer } from '../commonStyle';
 
 class DraftComponent extends Component {
@@ -11,6 +11,7 @@ class DraftComponent extends Component {
     this.state = {
       editorState: EditorState.createEmpty(),
       rawJson: null,
+      writeDirection: 'ltr',
     }
   }
 
@@ -25,18 +26,31 @@ class DraftComponent extends Component {
     });
   }
 
+  updateWriteDirection = (e) => {
+    this.setState({ writeDirection: e.target.value })
+  }
+
   render() {
-    const { editorState } = this.state;
+    const { editorState, writeDirection } = this.state;
     return (
       <EditorWrapper>
         <HeaderContainer>
           <Typography variant="h5" color="primary">Draft JS Editor</Typography>
+          <FormControl variant="outlined">
+            <Select
+              value={writeDirection}
+              onChange={this.updateWriteDirection}
+            >
+              <MenuItem value={'ltr'}>Left To Right</MenuItem>
+              <MenuItem value={'rtl'}>Right To Left</MenuItem>
+            </Select>
+          </FormControl>
         </HeaderContainer>
         <Toolbar
             editorState={editorState}
             updateEditorState={this.updateEditorState}
           />
-        <EditorContainer>
+        <EditorContainer style={{ direction: writeDirection }}>
           <Editor
             placeholder="Draft JS Editor..."
             editorState={editorState} 

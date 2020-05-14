@@ -25,7 +25,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
  - [x] Should support UTF-8 encoded languages
  - [x] Can interact with text - highlighting, clicking, additional styles, react component inside of the text
  - [x] Must support pins and events, other things nice to have
- - [ ] We can configure for right to left writing - The Documentation says it is possible, however, couldn't make it work on this project when using an Arabic keyboard.
+ - [x] We can configure for right to left writing - The Documentation says it is possible, however, couldn't make it work on this project when using an Arabic keyboard. Did it using a CSS property.
   
 
 ## Quill JS
@@ -49,8 +49,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
  
 **Requirements:** Still looking QuillJS
 
- - [ ] Typing text - text editor as normal (Insert, substitute, delete text characters), undo/redo, support copy paste
- - [ ] Should support UTF-8 encoded languages
+ - [x] Typing text - text editor as normal (Insert, substitute, delete text characters), undo/redo, support copy paste
+ - [x] Should support UTF-8 encoded languages
  - [ ] Can interact with text - highlighting, clicking, additional styles, react component inside of the text
  - [ ] Must support pins and events, other things nice to have
- - [ ] We can configure for right to left writing - The Documentation says it is possible, however, couldn't make it work on this project when using an Arabic keyboard.
+ - [x] We can configure for right to left writing. Did it using a CSS property. Didn't find any native support
+
+ **Notes**:
+
+- **About Perfomance:** Like DOM events, Quill key bindings are blocking calls on every match, so it is a bad idea to have a very expensive handler for a very common key binding.
