@@ -1,36 +1,51 @@
 import React, { Component } from 'react';
-import styled from "styled-components";
+import Quill from 'quill';
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import { Typography } from '@material-ui/core';
+import { EditorWrapper, HeaderContainer, EditorContainer } from '../commonStyle';
 
-const EditorWrapper = styled.div`
-  min-width: 700px;
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-  margin-top: 3em;
-`;
-
-const EditorContainer = styled.div`
-  display: flex;
-  min-height: 9em;
-  border-radius: 0 0 3px 3px;
-  background-color: #fff;
-  padding: 5px;
-  font-size: 17px;
-  font-weight: 300;
-  box-shadow: 0px 0px 3px 1px rgba(15, 15, 15, 0.17);
-`;
-
+const editorOptions = {
+  placeholder: 'Quill JS Editor..',
+  theme: 'snow',
+};
 
 class QuillComponent extends Component {
+  editor = null;
+
   constructor(props) {
     super(props);
     this.state = {}
   }
 
+  componentDidMount() {
+    this.instantiateEditor();
+  }
+
+  instantiateEditor() {
+    const editorContainerId = document.getElementById(this.props.editorId);
+
+    this.editor = this.createEditor(
+      editorContainerId,
+      editorOptions,
+    );
+  }
+
+  createEditor(domElement, config) {
+    return new Quill(domElement, config);
+  }
+
+  renderEditingArea = () => {
+    return React.createElement('div', [this.editor]);
+  };
+  
   render() {
     return (
       <EditorWrapper>
-        <span>Quill Component</span>
+        <HeaderContainer>
+          <Typography variant="h5" color="secondary">Quill JS Editor</Typography>
+        </HeaderContainer>
+        <EditorContainer id={this.props.editorId} />
       </EditorWrapper>
     );
   }

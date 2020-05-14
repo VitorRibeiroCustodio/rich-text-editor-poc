@@ -51,7 +51,7 @@ class App extends Component {
           </Button>
         </Breadcrumbs>
         {selectedLibrary === availableLibraries.draftJS && <DrafComponent />}
-        {selectedLibrary === availableLibraries.quillJS && <QuillComponent />}
+        {selectedLibrary === availableLibraries.quillJS && <QuillComponent editorId={"quillContainer"} />}
       </ContainerWrapper>
     );
   }
