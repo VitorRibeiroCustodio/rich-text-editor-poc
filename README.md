@@ -7,4 +7,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Useful links
 
- - Best practices when working with draft js
+ - [Best practices when working with draft js](https://reactrocket.com/post/draft-js-best-practices/)
+ - [React Quill Library](https://github.com/zenoamaro/react-quill). Version 2 is on beta, this version will support Typescript

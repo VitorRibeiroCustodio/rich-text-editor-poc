@@ -3,7 +3,7 @@ import { Editor, EditorState, convertToRaw } from 'draft-js';
 import styled from "styled-components";
 import Toolbar from "./Toolbar/index";
 import { customStyleFn, customStyleMap } from "./Toolbar/customStyles";
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 const EditorWrapper = styled.div`
   min-width: 700px;
@@ -11,6 +11,10 @@ const EditorWrapper = styled.div`
   flex-direction: column;
   height: fit-content;
   margin-top: 3em;
+`;
+
+const HeaderContainer = styled.div`
+  margin-bottom: 20px;
 `;
 
 const EditorContainer = styled.div`
@@ -48,6 +52,9 @@ class DraftComponent extends Component {
     const { editorState } = this.state;
     return (
       <EditorWrapper>
+        <HeaderContainer>
+          <Typography variant="h5" color="primary">Draft JS Editor</Typography>
+        </HeaderContainer>
         <Toolbar
             editorState={editorState}
             updateEditorState={this.updateEditorState}
