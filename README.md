@@ -18,6 +18,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 -  [Best practices when working with draft js](https://reactrocket.com/post/draft-js-best-practices/)
 
+
+**Requirements:** 
+
+ - [x] Typing text - text editor as normal (Insert, substitute, delete text characters), undo/redo, support copy paste
+ - [x] Should support UTF-8 encoded languages
+ - [x] Can interact with text - highlighting, clicking, additional styles, react component inside of the text
+ - [x] Must support pins and events, other things nice to have
+ - [ ] We can configure for right to left writing - The Documentation says it is possible, however, couldn't make it work on this project when using an Arabic keyboard.
   
 
 ## Quill JS
@@ -27,14 +35,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 -  [Offical website](https://quilljs.com/)
 
 -  [React Quill Library](https://github.com/zenoamaro/react-quill).
-
-**Requirements:** 
-
- - [x] Typing text - text editor as normal (Insert, substitute, delete text characters), undo/redo, support copy paste
- - [x] Should support UTF-8 encoded languages
- - [x] Can interact with text - highlighting, clicking, additional styles, react component inside of the text
- - [x] Must support pins and events, other things nice to have
- - [ ] We can configure for right to left writing - The Documentation says it is possible, however, couldn't make it work on this project when using an Arabic keyboard.
 
 
 **Official note from React Quill Library:**
@@ -46,7 +46,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 > the internal logic.
 
 -  [Similiar logic used to run the library on a React project](https://github.com/zenoamaro/react-quill/blob/master/src/index.tsx)
-- 
+ 
 **Requirements:** Still looking QuillJS
 
  - [ ] Typing text - text editor as normal (Insert, substitute, delete text characters), undo/redo, support copy paste
