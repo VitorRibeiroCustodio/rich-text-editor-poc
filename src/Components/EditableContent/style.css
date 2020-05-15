@@ -1,0 +1,8 @@
+.editableContainer {
+  width: 100%;
+  height: 9em;
+}
+
+.encapsulatedStyle {
+  display: inline;
+}

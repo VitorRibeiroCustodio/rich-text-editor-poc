@@ -61,7 +61,7 @@ class App extends Component {
         </Breadcrumbs>
         {selectedLibrary === availableLibraries.draftJS && <DrafComponent />}
         {selectedLibrary === availableLibraries.quillJS && <QuillComponent editorId={"quillContainer"} />}
-        {selectedLibrary === availableLibraries.editableContent && <EditableComponent />}
+        {selectedLibrary === availableLibraries.editableContent && <EditableComponent containerId={"editableContainerId"} />}
       </ContainerWrapper>
     );
   }
