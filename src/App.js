@@ -4,6 +4,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Button from '@material-ui/core/Button';
 import DrafComponent from './Components/DraftJs/DraftComponent';
 import QuillComponent from './Components/QuillJs/QuillComponent';
+import EditableComponent from './Components/EditableContent/EditableComponent';
 import './App.css';
 
 const ContainerWrapper = styled.div`
@@ -15,6 +16,7 @@ const ContainerWrapper = styled.div`
 const availableLibraries = {
   draftJS: 'DraftJS',
   quillJS: 'QuillJS',
+  editableContent: 'Editable',
 }
 
 class App extends Component {
@@ -49,9 +51,17 @@ class App extends Component {
             color="secondary">
             {availableLibraries.quillJS}
           </Button>
+          <Button
+            value={availableLibraries.editableContent}
+            onClick={(e, value=availableLibraries.editableContent) => this.changeLibraryEditor(e, value)}
+            variant="contained"
+            style={{ backgroundColor: '#4caf50', color: 'white' }}>
+            {availableLibraries.editableContent}
+          </Button>
         </Breadcrumbs>
         {selectedLibrary === availableLibraries.draftJS && <DrafComponent />}
         {selectedLibrary === availableLibraries.quillJS && <QuillComponent editorId={"quillContainer"} />}
+        {selectedLibrary === availableLibraries.editableContent && <EditableComponent />}
       </ContainerWrapper>
     );
   }

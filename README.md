@@ -58,3 +58,21 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
  **Notes**:
 
 - **About Perfomance:** Like DOM events, Quill key bindings are blocking calls on every match, so it is a bad idea to have a very expensive handler for a very common key binding.
+
+- **QuillJS impressions:** Does provide a easy way to have a simple editor. Provides default themes, .e.g., snow, that already has a basic setup. However, the issue is when trying to add customized React components to the editor. The library does not provide a simple and straightforward away. It's simple to add paragraphs, div, span, but a new component, i had to add directly into the DOM to have a result on it. Even so, it wasn't the best one we could have expected.
+
+
+## Editable Content Tag
+
+  
+
+-  [MDN Page Link](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content)
+
+
+**Requirements:** 
+
+ - [ ] Typing text - text editor as normal (Insert, substitute, delete text characters), undo/redo, support copy paste
+ - [ ] Should support UTF-8 encoded languages
+ - [ ] Can interact with text - highlighting, clicking, additional styles, react component inside of the text
+ - [ ] Must support pins and events, other things nice to have
+ - [ ] We can configure for right to left writing -

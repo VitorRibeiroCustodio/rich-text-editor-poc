@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, convertToRaw, Modifier, AtomicBlockUtils } from 'draft-js';
+import { Editor, EditorState, Modifier, AtomicBlockUtils } from 'draft-js';
 import Immutable from 'immutable';
 import Toolbar from "./Toolbar/index";
 import { customStyleFn, customStyleMap } from "./Toolbar/customStyles";
-import { Button, Typography, Select, MenuItem, FormControl } from '@material-ui/core';
+import { Typography, Select, MenuItem, FormControl } from '@material-ui/core';
 import { EditorWrapper, HeaderContainer, EditorContainer } from '../commonStyle';
 import { mediaBlockRenderer } from './Toolbar/blockStyle';
 
@@ -29,13 +29,6 @@ class DraftComponent extends Component {
 
   updateEditorState = (editorState) => {
     this.setState({editorState});
-  }
-  
-  exportData = () => {
-    const { editorState } = this.state;
-    this.setState({
-      rawJson: convertToRaw(editorState.getCurrentContent()),
-    });
   }
 
   updateWriteDirection = (e) => {
@@ -94,9 +87,6 @@ class DraftComponent extends Component {
             blockRenderMap={blockRenderMap}
           />
         </EditorContainer>
-        <Button variant="contained" color="primary" onClick={this.exportData}>
-          Hope to Export Data
-        </Button>
       </EditorWrapper>
     );
   }
