@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { RenderInlineStyles } from "./inlineStyle";
 import { RenderCustomStyles } from "./customStyles";
+import { RenderBlockStyles } from './blockStyle';
 
 const ToolbarContainer = styled.div`
   display: flex;
@@ -25,6 +26,11 @@ export default class Toolbar extends React.Component {
         <RenderCustomStyles
           editorState={this.props.editorState}
           updateEditorState={this.props.updateEditorState}
+        />
+        <RenderBlockStyles
+          editorState={this.props.editorState}
+          updateEditorState={this.props.updateEditorState}
+          addBlockState={this.props.addBlockState}
         />
       </ToolbarContainer>
     );

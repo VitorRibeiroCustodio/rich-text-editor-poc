@@ -2,7 +2,7 @@ import React from "react";
 import { RichUtils } from 'draft-js';
 import createStyles from "draft-js-custom-styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnchor, faMapPin } from "@fortawesome/free-solid-svg-icons";
+import { faAnchor, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import { Container, ToolbarItem } from "./common";
 
 export const customStyleMap = {
@@ -28,7 +28,7 @@ const customStyles = [
   },
   {
     label: "red-color",
-    icon: <FontAwesomeIcon icon={faMapPin} />,
+    icon: <FontAwesomeIcon icon={faLightbulb} />,
     styler: editorState => {
       return RichUtils.toggleInlineStyle(editorState, 'pinAnnotation');
     }
