@@ -1,90 +1,93 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, Modifier, AtomicBlockUtils } from 'draft-js';
-import Immutable from 'immutable';
-import Toolbar from "./Toolbar/index";
-import { customStyleFn, customStyleMap } from "./Toolbar/customStyles";
-import { Typography, Select, MenuItem, FormControl } from '@material-ui/core';
+import styled from "styled-components";
+import { Editor, EditorState, Modifier, CompositeDecorator } from 'draft-js';
+import { Typography, FormControl } from '@material-ui/core';
 import { EditorWrapper, HeaderContainer, EditorContainer } from '../commonStyle';
-import { mediaBlockRenderer } from './Toolbar/blockStyle';
+import CustomComponent from './CustomComponent';
 
-const blockRenderMap = Immutable.Map({
-  'header-two': {
-    element: 'h2'
+export const getEntityStrategy = (entityType) => (
+  contentBlock,
+  callback,
+  contentState
+) => {
+  contentBlock.findEntityRanges((character) => {
+    const entityKey = character.getEntity();
+    return entityKey !== null && contentState.getEntity(entityKey).getType() === entityType;
+  }, callback);
+};
+const COMPOSITE_DECORATOR = new CompositeDecorator([
+  {
+    strategy: getEntityStrategy('CustomComponent'),
+    component: CustomComponent,
   },
-  'unstyled': {
-    element: 'div',
-    aliasedElements: ['p'],
-  },
-});
+]);
+
+const ToolbarContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 48px;
+  padding: 5px 7px;
+  margin-bottom: 8px;
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0px 0px 3px 1px rgba(15, 15, 15, 0.17);
+`;
 
 class DraftComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: EditorState.createEmpty(),
-      rawJson: null,
-      writeDirection: 'ltr',
+      editorState: EditorState.createEmpty(COMPOSITE_DECORATOR),
     }
   }
 
+
   updateEditorState = (editorState) => {
-    this.setState({editorState});
+    this.setState({ editorState: EditorState.set(editorState, {
+      decorator: COMPOSITE_DECORATOR,
+    })});
   }
 
-  updateWriteDirection = (e) => {
-    this.setState({ writeDirection: e.target.value })
-  }
-
-  addBlockState = (editorState) => {
-    let newContentState;
-    let newEditorState;
-    const contentstate = editorState.getCurrentContent();
+  addCustomComponent = (e) => {
+    const { editorState } = this.state;
+    e.preventDefault();
+    const contentState = editorState.getCurrentContent();
     const selectionState = editorState.getSelection();
-    newContentState = contentstate.createEntity('paragraph', 'MUTABLE', { src: 'teste' });
-    
-    const entityKey = contentstate.getLastCreatedEntityKey();
-    newContentState = Modifier.applyEntity(newContentState, selectionState, entityKey);
-    newEditorState = EditorState.push(editorState, newContentState, 'apply-entity');
-    this.setState({
-      editorState: AtomicBlockUtils.insertAtomicBlock(
-        newEditorState,
-        entityKey,
-        ""
-       ),
-    })
+    const contentWithEntity = contentState.createEntity('CustomComponent', 'IMMUTABLE', {
+      color: 'blue',
+      name: 'test',
+    });
+    const entityKey = contentWithEntity.getLastCreatedEntityKey();
+    let newContentState = Modifier.insertText(contentState, selectionState, ' ', undefined, entityKey);
+    const endEventPos = selectionState.getAnchorOffset();
+    const blockKey = selectionState.getAnchorKey();
+    const blockSize = contentState.getBlockForKey(blockKey).getLength();
+    // Insert a space if event is placed at the end of a the text
+    if (endEventPos === blockSize) {
+      newContentState = Modifier.insertText(newContentState, newContentState.getSelectionAfter(), ' ');
+    }
+
+    const newEditorState = EditorState.push(editorState, newContentState, 'insert-characters');
+    this.setState({ editorState: EditorState.moveFocusToEnd(newEditorState) });
   }
 
   render() {
-    const { editorState, writeDirection } = this.state;
+    const { editorState } = this.state;
     return (
       <EditorWrapper>
         <HeaderContainer>
           <Typography variant="h5" color="primary">Draft JS Editor</Typography>
           <FormControl variant="outlined">
-            <Select
-              value={writeDirection}
-              onChange={this.updateWriteDirection}
-            >
-              <MenuItem value={'ltr'}>Left To Right</MenuItem>
-              <MenuItem value={'rtl'}>Right To Left</MenuItem>
-            </Select>
           </FormControl>
         </HeaderContainer>
-        <Toolbar
-            editorState={editorState}
-            updateEditorState={this.updateEditorState}
-            addBlockState={this.addBlockState}
-          />
-        <EditorContainer style={{ direction: writeDirection }}>
+        <ToolbarContainer>
+          <button onClick={this.addCustomComponent}>Add Custom Component</button>
+        </ToolbarContainer>
+        <EditorContainer style={{ paddingTop: '40px' }}>
           <Editor
             placeholder="Draft JS Editor..."
             editorState={editorState} 
             onChange={this.updateEditorState}
-            customStyleFn={customStyleFn}
-            customStyleMap={customStyleMap}
-            spellCheck={true}
-            blockRendererFn={mediaBlockRenderer}
-            blockRenderMap={blockRenderMap}
           />
         </EditorContainer>
       </EditorWrapper>
